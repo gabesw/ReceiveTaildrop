@@ -1,0 +1,12 @@
+[Unit]
+Description=Script to automatically receive taildrop files
+After=network.target
+
+[Service]
+ExecStart=/home/gabe/.scripts/ReceiveTaildrop/receive_taildrop.sh
+Restart=always
+RestartSec=5
+Environment="TAILDROP_FOLDER=/home/gabe/TempDownloads"
+
+[Install]
+WantedBy=default.target
