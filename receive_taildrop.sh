@@ -35,7 +35,14 @@ do
 	tempfolder="/tmp/taildroptemp_$(date +"%T.%N")";
 	mkdir $tempfolder;
 	tailscale file get $tempfolder;
+	if [[ $? -eq 1 ]]; then
+		sleep 10;
+		continue;
+	fi
 	filename=`ls $tempfolder`;
+	if [[ ! -e "$filename" ]]; then
+		continue;
+	fi
 	tempfilepath=$tempfolder/$filename;
 	newname=$(mv_safe "$tempfilepath" "$taildrop_folder");
 	rmdir $tempfolder;
