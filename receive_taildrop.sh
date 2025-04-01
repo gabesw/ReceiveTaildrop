@@ -36,11 +36,12 @@ do
 	mkdir $tempfolder;
 	tailscale file get $tempfolder;
 	if [[ $? -eq 1 ]]; then
+		echo "Cannot initiate taildrop. Is tailscale connected?"
 		sleep 10;
 		continue;
 	fi
 	filename=`ls $tempfolder`;
-	if [[ ! -e "$filename" ]]; then
+	if [[ ! -e "$tempfolder/$filename" ]]; then
 		continue;
 	fi
 	tempfilepath=$tempfolder/$filename;
@@ -55,3 +56,4 @@ do
 		notify-send -a "System" -t 1000 "File Deleted"
 	fi
 done
+echo "Exiting..."
